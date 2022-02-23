@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment-2</string>
+    <string name="app_name">Assignment-3</string>
     <string name="Question">No question has been loaded</string>
     <string name="True_Button">True</string>
     <string name="False_Button">False</string>
@@ -47,5 +47,11 @@
     <string name="CheaterConfirmation">Are you sure you want to do this?</string>
     <string name="CheaterConfirmationButton">Show answer</string>
     <string name="BecomeCheaterButton">CHEAT!</string>
+
+    <string name="Player1Name">No name set</string>
+    <string name="Player2Name">No name set</string>
+    <string name="PlayerScoreBanner">Player: %s with %s points</string>
+    <string name="WinnerBanner">Congratulations %s! You won!</string>
+    <string name="NoPlayersRegistered">No players have been registered</string>
 
 </resources>

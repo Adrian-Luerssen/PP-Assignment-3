@@ -2,6 +2,7 @@ package com.example.assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Button;
@@ -20,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private Button resetButton;
     private Button nextButton;
     private Button backButton;
+
+    private Player player1;
+    private Player player2;
+    //private Button cheater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +133,17 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        /*cheater.setOnClickListener(view -> {
+            Intent myIntent = new Intent(MainActivity.this, CheatActivity.class);
+            myIntent.putExtra("key", true); //Optional parameters
+            MainActivity.this.startActivity(myIntent);
+
+        });*/
+
     }
 
     public void initVars(){
+        //cheater = (Button) findViewById(R.id.BecomeCheaterButton);
         backButton = (Button) findViewById(R.id.back_button);
         nextButton = (Button) findViewById(R.id.next_button);
         resetButton = (Button) findViewById(R.id.reset_button);   // reset button in the view
@@ -138,6 +151,15 @@ public class MainActivity extends AppCompatActivity {
         falseButton = (Button) findViewById(R.id.false_button); // false button in the view
         question = (TextView) findViewById(R.id.question); // text box displaying the question in the view
         score = (TextView) findViewById(R.id.score);
+    }
+
+    public void endGame(){
+        Intent myIntent = new Intent(MainActivity.this, EndActivity.class);
+        myIntent.putExtra("PlayerOneName", "player one name"); //Optional parameters
+        myIntent.putExtra("PlayerOneScore", player1.getCorrectAnswers()+"/"+ player1.getQuestionsAnswered()); //Optional parameters
+        myIntent.putExtra("PlayerTwoName", "player two name"); //Optional parameters
+        myIntent.putExtra("PlayerTwoScore", player2.getCorrectAnswers()+"/"+ player2.getQuestionsAnswered()); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
 }
