@@ -12,7 +12,7 @@ public class EndActivity extends AppCompatActivity {
 
     private TextView player1Result;
     private TextView player2Result;
-    private TextView WinnerBanner;
+    private TextView winnerBanner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,13 +20,15 @@ public class EndActivity extends AppCompatActivity {
         Intent intent = getIntent();
         player1Result = (TextView) findViewById(R.id.player1Banner);
         player2Result = (TextView) findViewById(R.id.player2Banner);
-        String player1Name = intent.getStringExtra("PlayerOneName");
-        String player1Score = intent.getStringExtra("PlayerOneScore");
+        String winnerName = intent.getStringExtra(getString(R.string.winnerNameExtra));
+        String winnerScore = intent.getStringExtra(getString(R.string.winnerScoreExtra));
 
-        String player2Name = intent.getStringExtra("PlayerTwoName");
-        String player2Score = intent.getStringExtra("PlayerTwoScore");
-        player1Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),player1Name,player1Score));
-        player1Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),player2Name,player2Score));
+        String loserName = intent.getStringExtra(getString(R.string.loserNameExtra));
+        String loserScore = intent.getStringExtra(getString(R.string.loserScoreExtra));
+        player1Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),winnerName,winnerScore));
+        player2Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),loserName,loserScore));
+
+        winnerBanner.setText(String.format(Locale.ENGLISH,getString(R.string.WinnerBanner),winnerName));
 
     }
 }

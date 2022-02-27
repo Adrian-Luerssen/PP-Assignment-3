@@ -54,4 +54,16 @@
     <string name="WinnerBanner">Congratulations %s! You won!</string>
     <string name="NoPlayersRegistered">No players have been registered</string>
 
+    <string name="EXTRA_ANSWER_IS_TRUE">INTENT_EXTRA_KEY_FOR_ANSWER</string>
+    <string name="EXTRA_ANSWER_SHOWN">INTENT_EXTRA_KEY_IF_CHEATER</string>
+    <string name="winnerNameExtra">winnerNameExtra</string>
+    <string name="loserNameExtra">loserNameExtra</string>
+
+    <string name="winnerScoreExtra">winnerScoreExtra</string>
+    <string name="loserScoreExtra">loserScoreExtra</string>
+
+    <string name="answerIsTrue">The answer is True</string>
+    <string name="answerIsFalse">The answer is False</string>
+
+    <string name="playersTurn">It is %s's turn.</string>
 </resources>
