@@ -1,12 +1,25 @@
 package com.example.assignment;
 
-public class Player {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Player implements Serializable {
+
     private String name;
     private int correctAnswers;
     private int questionsAnswered;
     private boolean isCheater;
 
-    public Player() {
+    private boolean[] questionState;
+
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public void initializeQuestions(){
+
     }
 
     public String getName() { return name; }
@@ -36,4 +49,9 @@ public class Player {
     public void setCheater(boolean cheater) {
         isCheater = cheater;
     }
+
+
+
+
+
 }

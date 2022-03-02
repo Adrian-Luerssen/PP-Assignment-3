@@ -3,7 +3,7 @@ package com.example.assignment;
 public class Question {
     private final String question;
     private final boolean correctAnswer;
-    private boolean isAnswered;
+    private boolean[] isAnswered;
     private final String explanation;
 
 
@@ -16,7 +16,7 @@ public class Question {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.explanation = "";
-        this.isAnswered = false;
+        this.isAnswered = new boolean[]{false, false};
     }
 
     // early concept to add explanation to question
@@ -36,13 +36,13 @@ public class Question {
 
     public String getExplanation(){return explanation;}
 
-    public boolean isAnswered(){
-        return this.isAnswered;
+    public boolean isAnswered(int currentPlayer){
+        return this.isAnswered[currentPlayer - 1];
     }
 
     // SETTERS
-    public void setAnswerState(boolean state){
-        this.isAnswered = state;
+    public void setAnswerState(boolean state, int currentPlayer){
+        this.isAnswered[currentPlayer - 1] = state;
     }
 
 }

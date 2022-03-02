@@ -6,27 +6,17 @@ public class QuestionPool {
 
     private ArrayList<com.example.assignment.Question> questions;
 
-    private int correctAnswers;
-
-    private int totalAnswered;
-
     private int index;
 
     public void init(){
 
         index = 0;
 
-        correctAnswers = 0;
-
         questions = new ArrayList<>();
 
     }
 
     //GETTERS
-
-    public int getCorrectAnswers(){
-        return correctAnswers;
-    }
 
     public String getQuestionExplanation(){
         return questions.get(index).getExplanation();
@@ -36,19 +26,12 @@ public class QuestionPool {
         return questions.get(index).getQuestion();
     }
 
-    public boolean isCurrentQuestionAnswered(){
-        return !questions.get(index).isAnswered();
+    public boolean isCurrentQuestionAnswered(int currentPlayer){
+        return !questions.get(index).isAnswered(currentPlayer);
     }
 
-    public int getTotalAnswered() {
-        return totalAnswered;
-    }
-
-    // stopped using it as we changed the way of moving in ArrayList
-    // kept it just for future checks
-    @Deprecated
-    public boolean isEmpty(){
-        return questions.size() == totalAnswered;
+    public int getTotalQuestions(){
+        return questions.size();
     }
 
     public boolean answerIsCorrect(boolean answer) {
@@ -60,7 +43,6 @@ public class QuestionPool {
     //SETTERS
 
     public void nextQuestion() {
-
 
         index++;
 
@@ -90,29 +72,23 @@ public class QuestionPool {
         questions.add(new com.example.assignment.Question(question,correctAnswer));
     }
 
-    public void answeredCurrentQuestion(boolean answerCorrect){
+    public void answeredCurrentQuestion(boolean answerCorrect, int currentPlayer){
 
-        if(answerCorrect){
-            correctAnswers++;
-        }
-
-        questions.get(index).setAnswerState(true);
-        totalAnswered++;
-
-        System.out.print(totalAnswered);
+        questions.get(index).setAnswerState(true, currentPlayer);
 
     }
 
     public void restartQuestions(){
 
         index = 0;
-        correctAnswers = 0;
-        totalAnswered = 0;
 
         for(int i = 0; i < questions.size(); i++){
-            questions.get(i).setAnswerState(false);
+            questions.get(i).setAnswerState(false, 0);
+        }
+
+        for(int i = 0; i < questions.size(); i++){
+            questions.get(i).setAnswerState(false, 1);
         }
 
     }
-
 }

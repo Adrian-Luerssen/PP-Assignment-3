@@ -10,11 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CHEAT_CODE = 999;
+
     private TextView question;
     private TextView turnText;
 
@@ -34,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+
         QuestionPool questionPool = new QuestionPool();
         // saving the question and answer strings for later use
         // done as variable to make it more readable
@@ -41,9 +43,14 @@ public class MainActivity extends AppCompatActivity {
         String[] answerArray = getResources().getStringArray(R.array.answers);
         questionPool.init();
         initVars();
-        player1 = new Player();
-        player2 = new Player();
-        player1.setName("adri"); player2.setName("abel");
+
+        if(extras != null){
+            player1 = (Player) extras.get("player1");
+            player2 = (Player) extras.get("player2");
+        }
+
+
+
         setPlayersTurn();
 
         // filling the question pool with the previously loaded strings
@@ -51,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; !questionArray[i].equals("No question has been loaded"); i++){
             questionPool.addQuestion(questionArray[i], answerArray[i].equals("TRUE"));
         }
+
         question.setText(questionPool.getQuestionString());
 
         // setting the initial question on start up
@@ -69,52 +77,71 @@ public class MainActivity extends AppCompatActivity {
 
         trueButton.setOnClickListener(view -> {
             // changes the display question
-            System.out.print(questionPool.isCurrentQuestionAnswered());
-            if (questionPool.isCurrentQuestionAnswered()){
+            System.out.print(questionPool.isCurrentQuestionAnswered(turn));
+            if (questionPool.isCurrentQuestionAnswered(turn)){
                 // the user presses true, display the corresponding toast if the answer is correct or not
                 if (questionPool.answerIsCorrect(true)) {
 
                     correctToast.setText(getString(R.string.toast_correct)+ "\n" + questionPool.getQuestionExplanation());
                     correctToast.show();
-                    questionPool.answeredCurrentQuestion(true);
+                    questionPool.answeredCurrentQuestion(true, turn);
+                    addPointToPlayer();
 
                 } else {
 
                     incorrectToast.setText(getString(R.string.toast_incorrect) + "\n" + questionPool.getQuestionExplanation());
                     incorrectToast.show();
-                    questionPool.answeredCurrentQuestion(false);
+                    questionPool.answeredCurrentQuestion(false, turn);
 
                 }
+
+                addQuestionToPlayer();
                 turn = (turn%2)+1;
+                setPlayersTurn();
+
 
             } else {
-                alreadyAnsweredToast.setText(getString(R.string.toast_answered));
+
+                alreadyAnsweredToast.setText(String.format(getString(R.string.toast_answered), getTurnPlayerName()));
                 alreadyAnsweredToast.show();
+
+            }
+
+            if(isQuestionsAnswered(questionPool.getTotalQuestions())){
+                endGame();
             }
 
         });
 
         falseButton.setOnClickListener(view -> {
             // changes the display question
-            System.out.print(questionPool.isCurrentQuestionAnswered());
-            if (questionPool.isCurrentQuestionAnswered()){
+            System.out.print(questionPool.isCurrentQuestionAnswered(turn));
+
+            if (questionPool.isCurrentQuestionAnswered(turn)){
 
                 // the user presses true, display the corresponding toast if the answer is correct or not
                 if (questionPool.answerIsCorrect(false)) {
                     correctToast.setText(getString(R.string.toast_correct) + "\n" + questionPool.getQuestionExplanation());
                     correctToast.show();
-                    questionPool.answeredCurrentQuestion(true);
+                    questionPool.answeredCurrentQuestion(true, turn);
+                    addPointToPlayer();
                 } else {
                     incorrectToast.setText(getString(R.string.toast_incorrect)+"\n"+questionPool.getQuestionExplanation());
                     incorrectToast.show();
-                    questionPool.answeredCurrentQuestion(false);
+                    questionPool.answeredCurrentQuestion(false, turn);
                 }
 
+                addQuestionToPlayer();
                 turn = (turn%2)+1;
                 setPlayersTurn();
+
             } else {
-                alreadyAnsweredToast.setText(getString(R.string.toast_answered));
+                alreadyAnsweredToast.setText(String.format(getString(R.string.toast_answered), getTurnPlayerName()));
                 alreadyAnsweredToast.show();
+            }
+
+            if(isQuestionsAnswered(questionPool.getTotalQuestions())){
+                endGame();
             }
 
 
@@ -151,6 +178,24 @@ public class MainActivity extends AppCompatActivity {
         if (turn == 2) turnText.setText(String.format(getString(R.string.playersTurn),player2.getName()));
     }
 
+    private void addQuestionToPlayer() {
+        if (turn == 1) player1.incrementAnswered();
+        if (turn == 2) player2.incrementAnswered();
+    }
+
+    private String getTurnPlayerName(){
+
+        if (turn == 1) return player1.getName();
+        if (turn == 2) return player2.getName();
+
+        return null;
+    }
+
+    private void addPointToPlayer() {
+        if (turn == 1) player1.incrementCorrect();
+        if (turn == 2) player2.incrementCorrect();
+    }
+
     public void initVars(){
         cheater = (Button) findViewById(R.id.BecomeCheaterButton);
         backButton = (Button) findViewById(R.id.back_button);
@@ -171,6 +216,14 @@ public class MainActivity extends AppCompatActivity {
         myIntent.putExtra(getString(R.string.loserScoreExtra), (player2.getCorrectAnswers() < player1.getCorrectAnswers())?player2.getCorrectAnswers()+"/"+ player2.getQuestionsAnswered():player1.getCorrectAnswers()+"/"+ player1.getQuestionsAnswered()); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
+
+
+    private boolean isQuestionsAnswered(int totalQuestions){
+
+        return player1.getQuestionsAnswered() == player2.getQuestionsAnswered()
+                && player1.getQuestionsAnswered() == totalQuestions;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -178,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (requestCode == REQUEST_CHEAT_CODE) { // true if the player has pressed the button to reveal the answer
-            System.out.println("HE CHEATIN");
+            System.out.println("HE CHEATIN'");
             if (data == null) {
                 return;
             }

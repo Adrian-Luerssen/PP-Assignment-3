@@ -5,10 +5,13 @@
     <string name="False_Button">False</string>
     <string name="toast_correct">That answer was correct</string>
     <string name="toast_incorrect">That answer was not correct</string>
-    <string name="toast_answered">This question has already been answered!</string>
+    <string name="toast_answered">This question has already been answered by %s!</string>
+    <string name="toast_wrong_input">Please, put something on the text box!</string>
     <string name="Score">Score: 0 / 0</string>
     <string name="Reset_Button">Reset</string>
     <string name="score_format">Score: %d / %d</string>
+    <string name="username_input_menu">Player %d</string>
+    <string name="username_input_button">Save</string>
 
     <string-array name="questions">
         <item name="Question1">Paris is the capital city of France.</item>
@@ -65,5 +68,5 @@
     <string name="answerIsTrue">The answer is True</string>
     <string name="answerIsFalse">The answer is False</string>
 
-    <string name="playersTurn">It is %s's turn.</string>
+    <string name="playersTurn">It is %s\'s turn.</string>
 </resources>

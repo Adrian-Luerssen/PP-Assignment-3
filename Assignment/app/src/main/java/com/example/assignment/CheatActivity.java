@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CheatActivity extends AppCompatActivity {
+
     private Button showAnswer;
+
     public static Intent newIntent(Context context, boolean answerIsTrue) {
         Intent intent = new Intent(context,CheatActivity.class);
         intent.putExtra("answer is true",answerIsTrue);

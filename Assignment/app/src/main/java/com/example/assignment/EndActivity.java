@@ -13,13 +13,23 @@ public class EndActivity extends AppCompatActivity {
     private TextView player1Result;
     private TextView player2Result;
     private TextView winnerBanner;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_end);
-        Intent intent = getIntent();
+
+
+    private void initVars(){
         player1Result = (TextView) findViewById(R.id.player1Banner);
         player2Result = (TextView) findViewById(R.id.player2Banner);
+        winnerBanner = (TextView) findViewById(R.id.WinnerBanner);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_end);
+
+        initVars();
+
+        Intent intent = getIntent();
         String winnerName = intent.getStringExtra(getString(R.string.winnerNameExtra));
         String winnerScore = intent.getStringExtra(getString(R.string.winnerScoreExtra));
 
