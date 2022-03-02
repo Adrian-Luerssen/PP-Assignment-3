@@ -53,7 +53,7 @@
 
     <string name="Player1Name">No name set</string>
     <string name="Player2Name">No name set</string>
-    <string name="PlayerScoreBanner">Player: %s with %s points</string>
+    <string name="PlayerScoreBanner">%s has %s points</string>
     <string name="WinnerBanner">Congratulations %s! You won!</string>
     <string name="NoPlayersRegistered">No players have been registered</string>
 
