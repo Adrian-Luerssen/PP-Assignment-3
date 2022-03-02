@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -13,12 +14,14 @@ public class EndActivity extends AppCompatActivity {
     private TextView player1Result;
     private TextView player2Result;
     private TextView winnerBanner;
+    private Button restart;
 
 
     private void initVars(){
         player1Result = (TextView) findViewById(R.id.player1Banner);
         player2Result = (TextView) findViewById(R.id.player2Banner);
         winnerBanner = (TextView) findViewById(R.id.WinnerBanner);
+        restart = (Button) findViewById(R.id.Restart_Button);
     }
 
     @Override
@@ -40,5 +43,9 @@ public class EndActivity extends AppCompatActivity {
 
         winnerBanner.setText(String.format(Locale.ENGLISH,getString(R.string.WinnerBanner),winnerName));
 
+        restart.setOnClickListener(view -> {
+            Intent intent1 = new Intent(EndActivity.this,NameActivity.class);
+            startActivity(intent1);
+        });
     }
 }

@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button trueButton;
     private Button falseButton;
-    private Button resetButton;
     private Button nextButton;
     private Button backButton;
 
@@ -148,11 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        resetButton.setOnClickListener(view -> {
-            questionPool.restartQuestions();
-            question.setText(questionPool.getQuestionString()); // changes the display question
 
-        });
 
         nextButton.setOnClickListener(view -> {
             questionPool.nextQuestion();
@@ -200,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
         cheater = (Button) findViewById(R.id.BecomeCheaterButton);
         backButton = (Button) findViewById(R.id.back_button);
         nextButton = (Button) findViewById(R.id.next_button);
-        resetButton = (Button) findViewById(R.id.reset_button);   // reset button in the view
         trueButton = (Button) findViewById(R.id.true_button);   // true button in the view
         falseButton = (Button) findViewById(R.id.false_button); // false button in the view
         question = (TextView) findViewById(R.id.question); // text box displaying the question in the view
